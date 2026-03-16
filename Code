@@ -1,0 +1,63 @@
+from dotenv import load_dotenv
+import os
+import tkinter as tk
+from tkinter import messagebox
+import smtplib
+from email.message import EmailMessage
+
+target_file = None
+for filename in os.listdir(directory):
+  if filename.endswith('.xlsx'):
+    target_file = filename
+    break
+
+if not target_file:
+  print("nenhum arquivo encontrado")
+  exit()
+
+
+filename_lower = target_file.lower()
+
+
+if 'hidraplus' in filename_lower:
+  conteudo = 'Bom dia Allan!\n\nSegue anexo a planilha para remessa industrialização HIDRAPLUS'
+  destinatario = 
+  destinatario_cc =
+elif 'ns' in filename_lower:
+  peso = input('peso:')
+  Volume = input('volume:')
+  conteudo = f"""Bom dia Allan!\n\nSegue anexo a planilha para remessa industrialização HIDRAPLUS\n\nPeso:{peso}\n\nVol:{volume}"""
+  destinatario = 
+  destinatario_cc = 
+else:
+  root = tk.Tk()
+  root.withdraw()
+  nota = messagebox.askyesno('Natureza de operação', 'É remessa?')
+  
+  if nota:
+    conteudo = 'Bom dia Allan!\n\nSegue anexo a planilha para remessa industrialização PRODAN'
+    destinatario = 
+    destinatario_cc = 
+  else:
+    conteudo = 'Bom dia katia!\n\nSegue anexo da planilha para retorno industrialização PRODAN'
+    destinatario = 
+    destinatario_cc = 
+
+msg = EmailMessage()
+msg.set_content(conteudo)
+msg['Subject'] = target_file
+msg['from'] = me
+msg['To'] = destinatario
+msg['cc'] = ', '.join(destinatario_cc)
+with (open(os.path.join(directory, target_file), 'rb') as f:
+      filedata = f.read()
+
+msg.add_attachment(filedata, 
+    maintype = 'application',
+    subtype = 'xlsx',
+    filename = target_file)
+server = 
+server.starttls()
+server.login('', '')
+server.send_message(msg)
+server.quit
